@@ -1,0 +1,186 @@
+################################################################################
+# Los Archivos con extensión http son interpretados por la extensión REST Client
+################################################################################
+
+# Variable con la URL base
+@BASE_API=http://localhost:3000/api
+
+### http://tu-servidor.com/inicio?user=nombre_usuario&pass=contrasena&sucursal=sucursal_nombre&puntoDeVenta=123
+
+POST {{BASE_API}}/
+Content-Type: application/json
+
+{
+    "user" : "Franco",
+    "pass" : "Franco",
+    "puntoDeVenta" : "65cb8d06d9fcb1fb2fb0a1ed"
+}
+
+
+
+### Crear Venta
+
+POST {{BASE_API}}/venta?dni=11111111
+Content-Type: application/json
+
+{
+    "sesionId" : "65f1bf47da8d6202882ca1c9"
+}
+
+
+### Buscar Articulo e inventario diponible
+
+GET {{BASE_API}}/inventario?id=65c91913a2929dfba633b72b
+
+### Seleccionar Inventario
+POST {{BASE_API}}/venta/seleccionar?cantidad=1&id=65cd023b7f39c19ab573ccd3
+Content-Type: application/json
+
+{
+    "sesion" : "65f1bf47da8d6202882ca1c9",
+    "venta" : "65f1bfe5da8d6202882ca1e7"
+}
+
+### finalizar seleccion articulos
+POST {{BASE_API}}/venta/cae
+Content-Type: application/json
+
+{
+    "sesion" : "65f1bf47da8d6202882ca1c9",
+    "venta" : "65f1bfe5da8d6202882ca1e7"
+}
+
+
+### indicar tipó de pago
+POST {{BASE_API}}/venta/pago
+Content-Type: application/json
+
+{
+    "tipo" : "efectivo",
+    "sesion" : "65f1bf47da8d6202882ca1c9",
+    "venta" : "65f1bfe5da8d6202882ca1e7"
+}
+
+### Solicitar Token Tarjeta
+
+POST {{BASE_API}}/venta/tarjeta
+Content-Type: application/json
+
+{
+
+    "tarjeta" : {   "card_number": "4507990000004905",
+        "card_expiration_month": "08",
+        "card_expiration_year": "24",
+        "security_code": "123",
+        "card_holder_name": "John Doe",
+        "card_holder_identification": {
+        "type": "dni",
+        "number": "25123456"
+        }},
+
+    "sesion" : "65ef7aa1375611b026bb60b8"
+}
+
+### Confirmar pago tarjeta
+POST {{BASE_API}}/venta/tarjeta/confirmar
+Content-Type: application/json
+
+{
+    "sesion" : "65ef7aa1375611b026bb60b8",
+    "venta" : "65ef7aab375611b026bb60c0"
+}
+
+### finalizarVenta
+POST {{BASE_API}}/venta/finalizar
+Content-Type: application/json
+
+{
+    "sesion" : "65f1bf47da8d6202882ca1c9",
+    "venta" : "65f1bfe5da8d6202882ca1e7"
+}
+
+### Cerrar Sesion
+POST {{BASE_API}}/cerrarSesion
+Content-Type: application/json
+
+{
+    "sesion" : "65f1bf47da8d6202882ca1c9",
+    "venta" : "65f1bfe5da8d6202882ca1e7"
+}
+
+### Crear Articulo
+PUT {{BASE_API}}/articulo
+Content-Type: application/json
+
+{
+  "descripcion": "short deportivo",
+  "costo": 7900,
+  "margenDeGanancia": 20,
+  "tipoDetalle": "65c8fc477e268ad35137fe1b",
+  "categoria": "65c8fbbf7e268ad35137fe15",
+  "marca": "65c8fbde7e268ad35137fe17"
+}
+
+###crear Categoria
+PUT {{BASE_API}}/categoria
+Content-Type: application/json
+
+{
+    "nombre": "Remera Deportiva"
+}
+
+###crear Marca
+PUT {{BASE_API}}/marca
+Content-Type: application/json
+
+{
+    "nombre": "Puma"
+}
+
+###crear Tipo de Talle
+PUT {{BASE_API}}/tipodetalle
+Content-Type: application/json
+
+{
+    "nombre": "US"
+}
+
+
+### buscar articulo
+
+GET {{BASE_API}}/articulo?id=65c91913a2929dfba633b72b
+
+### ASIGNAR CLIENTE
+POST {{BASE_API}}/venta/cliente?dni=87654321
+Content-Type: application/json
+
+{
+    "sesion" : "65f1bf47da8d6202882ca1c9",
+    "venta" : "65f1bfe5da8d6202882ca1e7"
+}
+
+
+### CREAR CLIENTE
+PUT {{BASE_API}}/cliente
+Content-Type: application/json
+
+{
+    "nombre": "Jose",
+    "apellido": "Gomez",
+    "telefono" : "454342",
+    "email" : "jose@gmail.com",
+    "domicilio" : "concepcion",
+    "dni" : 23234352,
+    "condicion" : "M"
+}
+
+
+### buscar marcas
+GET {{BASE_API}}/marcas
+
+### buscar tipo talles
+GET {{BASE_API}}/tipotalles
+
+
+### buscar categorias
+GET {{BASE_API}}/categorias
